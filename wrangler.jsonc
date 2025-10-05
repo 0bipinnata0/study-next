@@ -1,23 +1,21 @@
 {
-    "$schema": "node_modules/wrangler/config-schema.json",
-    "assets": {
-        "binding": "ASSETS",
-        "directory": ".open-next/assets"
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "assets": {
+    "binding": "ASSETS",
+    "directory": ".open-next/assets"
+  },
+  "compatibility_date": "2025-03-25",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".open-next/worker.js",
+  "name": "study-next",
+  "routes": [
+    {
+      "pattern": "all-your-base-are-belong-to-us.org",
+      "custom_domain": true
     },
-    "compatibility_date": "2025-03-25",
-    "compatibility_flags": [
-        "nodejs_compat"
-    ],
-    "main": ".open-next/worker.js",
-    "name": "study-next",
-    "routes": [
-        {
-            "pattern": "all-your-base-are-belong-to-us.org",
-            "custom_domain": true
-        },
-        {
-            "pattern": "www.all-your-base-are-belong-to-us.org",
-            "custom_domain": true
-        }
-    ]
+    {
+      "pattern": "www.all-your-base-are-belong-to-us.org",
+      "custom_domain": true
+    }
+  ]
 }
