@@ -4,8 +4,12 @@
     "binding": "ASSETS",
     "directory": ".open-next/assets"
   },
-  "compatibility_date": "2025-03-25",
-  "compatibility_flags": ["nodejs_compat"],
+  "compatibility_date": "2025-10-01",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "enable_nodejs_http_modules",
+    "enable_nodejs_http_server_modules"
+  ],
   "main": ".open-next/worker.js",
   "name": "study-next",
   "routes": [
