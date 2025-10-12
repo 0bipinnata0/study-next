@@ -6,11 +6,52 @@ import { z } from "zod";
 import { db } from "@/db";
 import { videos, videoUpdateSchema } from "@/db/schema";
 import { mux } from "@/lib/mux";
+import { workflow } from "@/lib/workflow";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import { APP_URL } from "@/constants";
 
 export const videosRouter = createTRPCRouter({
+  generateTitle: protectedProcedure
+    .input(z.object({ id: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const { id: userId } = ctx.user;
+
+      const { workflowRunId } = await workflow.trigger({
+        url: `${APP_URL}/api/videos/workflows/title`,
+        body: { userId, videoId: input.id },
+      });
+
+      return workflowRunId;
+    }),
+  generateDescription: protectedProcedure
+    .input(z.object({ id: z.uuid() }))
+    .mutation(async ({ ctx, input }) => {
+      const { id: userId } = ctx.user;
+
+      const { workflowRunId } = await workflow.trigger({
+        url: `${APP_URL}/api/videos/workflows/description`,
+        body: { userId, videoId: input.id },
+      });
+
+      return workflowRunId;
+    }),
+  generateThumbnail: protectedProcedure
+    .input(z.object({ id: z.uuid(), prompt: z.string().min(10) }))
+    .mutation(async ({ ctx, input }) => {
+      const { id: userId } = ctx.user;
+      const { workflowRunId } = await workflow.trigger({
+        url: `${APP_URL}/api/videos/workflows/thumbnail`,
+        body: { userId, videoId: input.id, prompt: input.prompt },
+        headers: {
+          Authorization:
+            "Bearer eyJVc2VySUQiOiJkZWZhdWx0VXNlciIsIlBhc3N3b3JkIjoiZGVmYXVsdFBhc3N3b3JkIn0=",
+        },
+      });
+
+      return workflowRunId;
+    }),
   restoreThumbnail: protectedProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ id: z.uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id: userId } = ctx.user;
 
@@ -58,7 +99,7 @@ export const videosRouter = createTRPCRouter({
       return updatedVideo;
     }),
   remove: protectedProcedure
-    .input(z.object({ id: z.string().uuid() }))
+    .input(z.object({ id: z.uuid() }))
     .mutation(async ({ ctx, input }) => {
       const { id: userId } = ctx.user;
 
