@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { APP_URL } from "@/constants";
 import { db } from "@/db";
-import { users, videos, videoUpdateSchema } from "@/db/schema";
+import { users, videos, videoUpdateSchema, videoViews } from "@/db/schema";
 import { mux } from "@/lib/mux";
 import { workflow } from "@/lib/workflow";
 import {
@@ -24,6 +24,7 @@ export const videosRouter = createTRPCRouter({
           user: {
             ...getTableColumns(users),
           },
+          viewCount: db.$count(videoViews, eq(videoViews.videoId, videos.id))
         })
         .from(videos)
         .innerJoin(users, eq(videos.userId, users.id))
