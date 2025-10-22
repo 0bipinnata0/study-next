@@ -11,7 +11,7 @@ export const subscriptionsRouter = createTRPCRouter({
     .input(
       z.object({
         cursor: z.object({
-          creatorId: z.string().uuid(),
+          creatorId: z.uuid(),
           updatedAt: z.date(),
         })
         .nullish(),
