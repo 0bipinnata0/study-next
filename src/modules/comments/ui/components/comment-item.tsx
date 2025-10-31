@@ -51,30 +51,30 @@ export const CommentItem = ({
     },
   });
 
-  // const like = trpc.commentReactions.like.useMutation({
-  //   onSuccess: () => {
-  //     utils.comments.getMany.invalidate({ videoId: comment.videoId });
-  //   },
-  //   onError: (error) => {
-  //     toast.error("Something went wrong");
+  const like = trpc.commentReactions.like.useMutation({
+    onSuccess: () => {
+      utils.comments.getMany.invalidate({ videoId: comment.videoId });
+    },
+    onError: (error) => {
+      toast.error("Something went wrong");
 
-  //     if (error.data?.code === "UNAUTHORIZED") {
-  //       clerk.openSignIn();
-  //     }
-  //   },
-  // });
-  // const dislike = trpc.commentReactions.dislike.useMutation({
-  //   onSuccess: () => {
-  //     utils.comments.getMany.invalidate({ videoId: comment.videoId });
-  //   },
-  //   onError: (error) => {
-  //     toast.error("Something went wrong");
+      if (error.data?.code === "UNAUTHORIZED") {
+        clerk.openSignIn();
+      }
+    },
+  });
+  const dislike = trpc.commentReactions.dislike.useMutation({
+    onSuccess: () => {
+      utils.comments.getMany.invalidate({ videoId: comment.videoId });
+    },
+    onError: (error) => {
+      toast.error("Something went wrong");
 
-  //     if (error.data?.code === "UNAUTHORIZED") {
-  //       clerk.openSignIn();
-  //     }
-  //   },
-  // });
+      if (error.data?.code === "UNAUTHORIZED") {
+        clerk.openSignIn();
+      }
+    },
+  });
 
   return (
     <div>
@@ -100,9 +100,9 @@ export const CommentItem = ({
             </div>
           </Link>
           <p className="text-sm">{comment.value}</p>
-          {/* <div className="flex items-center gap-2 mt-1">
+          <div className="flex items-center gap-2 mt-1">
             <div className="flex items-center">
-              <Button 
+              <Button
                 disabled={like.isPending}
                 variant="ghost"
                 size="icon"
@@ -118,7 +118,7 @@ export const CommentItem = ({
               <span className="text-xs text-muted-foreground">
                 {comment.likeCount}
               </span>
-              <Button 
+              <Button
                 disabled={dislike.isPending}
                 variant="ghost"
                 size="icon"
@@ -145,7 +145,7 @@ export const CommentItem = ({
                 Reply
               </Button>
             )}
-          </div> */}
+          </div>
         </div>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
