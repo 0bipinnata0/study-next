@@ -21,11 +21,11 @@ import { CommentForm } from "./comment-form";
 import { CommentReplies } from "./comment-replies";
 
 interface CommentItemProps {
-  comment: CommentsGetManyOutput[number];
+  comment: CommentsGetManyOutput['items'][number];
   variant?: "reply" | "comment",
 };
 
-export const  CommentItem = ({
+export const CommentItem = ({
   comment,
   variant = "comment",
 }: CommentItemProps) => {
@@ -37,19 +37,19 @@ export const  CommentItem = ({
 
   const utils = trpc.useUtils();
 
-  // const remove = trpc.comments.remove.useMutation({
-  //   onSuccess: () => {
-  //     toast.success("Comment deleted");
-  //     utils.comments.getMany.invalidate({ videoId: comment.videoId });
-  //   },
-  //   onError: (error) => {
-  //     toast.error("Something went wrong");
+  const remove = trpc.comments.remove.useMutation({
+    onSuccess: () => {
+      toast.success("Comment deleted");
+      utils.comments.getMany.invalidate({ videoId: comment.videoId });
+    },
+    onError: (error) => {
+      toast.error("Something went wrong");
 
-  //     if (error.data?.code === "UNAUTHORIZED") {
-  //       clerk.openSignIn();
-  //     }
-  //   },
-  // });
+      if (error.data?.code === "UNAUTHORIZED") {
+        clerk.openSignIn();
+      }
+    },
+  });
 
   // const like = trpc.commentReactions.like.useMutation({
   //   onSuccess: () => {
@@ -147,7 +147,7 @@ export const  CommentItem = ({
             )}
           </div> */}
         </div>
-        {/* <DropdownMenu modal={false}>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="size-8">
               <MoreVerticalIcon />
@@ -164,8 +164,8 @@ export const  CommentItem = ({
                 Delete
               </DropdownMenuItem>
             )}
-        </DropdownMenuContent>
-      </DropdownMenu> */}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       {isReplyOpen && variant === "comment" && (
         <div className="mt-4 pl-14">
