@@ -23,11 +23,11 @@ export const UserPageBanner = ({ user }: UserPageBannerProps) => {
 
   return (
     <div className="relative group">
-      {/* <BannerUploadModal
+      <BannerUploadModal
         userId={user.id}
         open={isBannerUploadModalOpen}
         onOpenChange={setIsBannerUploadModalOpen}
-      /> */}
+      />
       <div className={cn(
         "w-full max-h-[200px] h-[15vh] md:h-[25vh] bg-linear-to-r from-gray-100 to-gray-200 rounded-xl",
         user.bannerUrl ? "bg-cover bg-center" : "bg-gray-100"
