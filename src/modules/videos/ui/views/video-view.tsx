@@ -1,14 +1,11 @@
 import { CommentsSection } from "../sections/comments-section";
-// import { SuggestionsSection } from "../sections/suggestions-section";
+import { SuggestionsSection } from "../sections/suggestions-section";
 import { VideoSection } from "../sections/video-section";
 
 interface VideoViewProps {
   videoId: string;
 }
 
-const SuggestionsSection = () => {
-  return <div>Suggestions</div>;
-};
 
 
 export const VideoView = ({ videoId }: VideoViewProps) => {
@@ -18,12 +15,12 @@ export const VideoView = ({ videoId }: VideoViewProps) => {
         <div className="flex-1 min-w-0">
           <VideoSection videoId={videoId} />
           <div className="xl:hidden block mt-4">
-            <SuggestionsSection />
+            <SuggestionsSection videoId={videoId} isManual />
           </div>
           <CommentsSection videoId={videoId} />
         </div>
         <div className="hidden xl:block w-full xl:w-[380px] 2xl:w-[460px] shrink-1">
-          <SuggestionsSection />
+          <SuggestionsSection videoId={videoId} />
         </div>
       </div>
     </div>
