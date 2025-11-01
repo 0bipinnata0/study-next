@@ -21,7 +21,7 @@ import { CommentForm } from "./comment-form";
 import { CommentReplies } from "./comment-replies";
 
 interface CommentItemProps {
-  comment: CommentsGetManyOutput['items'][number];
+  comment: CommentsGetManyOutput["items"][number];
   variant?: "reply" | "comment",
 };
 
@@ -102,7 +102,7 @@ export const CommentItem = ({
           <p className="text-sm">{comment.value}</p>
           <div className="flex items-center gap-2 mt-1">
             <div className="flex items-center">
-              <Button
+              <Button 
                 disabled={like.isPending}
                 variant="ghost"
                 size="icon"
@@ -118,7 +118,7 @@ export const CommentItem = ({
               <span className="text-xs text-muted-foreground">
                 {comment.likeCount}
               </span>
-              <Button
+              <Button 
                 disabled={dislike.isPending}
                 variant="ghost"
                 size="icon"
@@ -164,8 +164,8 @@ export const CommentItem = ({
                 Delete
               </DropdownMenuItem>
             )}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        </DropdownMenuContent>
+      </DropdownMenu>
       </div>
       {isReplyOpen && variant === "comment" && (
         <div className="mt-4 pl-14">
@@ -181,7 +181,7 @@ export const CommentItem = ({
           />
         </div>
       )}
-      {/* {comment.replyCount > 0 && variant === "comment" && (
+      {comment.replyCount > 0 && variant === "comment" && (
         <div className="pl-14">
           <Button
             variant="tertiary"
@@ -192,13 +192,13 @@ export const CommentItem = ({
             {comment.replyCount} replies
           </Button>
         </div>
-      )} */}
-      {/* {comment.replyCount > 0 && variant === "comment" && isRepliesOpen && (
+      )}
+      {comment.replyCount > 0 && variant === "comment" && isRepliesOpen && (
         <CommentReplies
           parentId={comment.id}
           videoId={comment.videoId}
         />
-      )} */}
+      )}
     </div>
   )
 };
