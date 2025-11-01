@@ -25,6 +25,9 @@ export const VideoPlayer = ({
 
   return (
     <MuxPlayer
+      extraSourceParams={{
+        default_subtitles_lang: "en"
+      }}
       playbackId={playbackId || ""}
       poster={thumbnailUrl || THUMBNAIL_FALLBACK}
       playerInitTime={0}
